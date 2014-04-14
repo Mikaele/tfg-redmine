@@ -1,0 +1,26 @@
+<h1>Listing complexities</h1>
+
+<table>
+  <tr>
+    <th>Factor</th>
+    <th>Multiplier</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @complexities.each do |complexity| %>
+  <tr>
+    <td><%= complexity.factor %></td>
+    <td><%= complexity.multiplier %></td>
+    <td><%= complexity.description %></td>
+    <td><%= link_to 'Show', complexity %></td>
+    <td><%= link_to 'Edit', edit_complexity_path(complexity) %></td>
+    <td><%= link_to 'Destroy', complexity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Complexity', new_complexity_path %>

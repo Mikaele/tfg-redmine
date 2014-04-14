@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Factor:</b>
+  <%= @complexity.factor %>
+</p>
+
+<p>
+  <b>Multiplier:</b>
+  <%= @complexity.multiplier %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @complexity.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_complexity_path(@complexity) %> |
+<%= link_to 'Back', complexities_path %>
