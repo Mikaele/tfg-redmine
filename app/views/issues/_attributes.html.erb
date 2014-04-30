@@ -53,7 +53,8 @@
 <% if @issue.safe_attribute? 'due_date' %>
 <p><%= f.text_field :due_date, :size => 10, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('due_date') %><%= calendar_for('issue_due_date') if @issue.leaf? %></p>
 <% end %>
-
+<div class="horas_pf">Horas PF</div>
+<div class="horas_pc">Horas PC</div>
 <% if @issue.safe_attribute? 'estimated_hours' %>
 <p><%= f.text_field :estimated_hours, :size => 3, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('estimated_hours') %> <%= l(:field_hours) %></p>
 <% end %>
@@ -62,14 +63,37 @@
 <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
 <% end %>
 </div>
-  <fieldset  id="issue_complexity"><legend>Unadjusted Use Case Points</legend>
+  <fieldset  id="issue_complexity"><legend>Ponto de Caso de Uso</legend>
     <select name="issue[usecase]">
-      <option <%= @issue.usecase==5? 'selected': ''%> value="5">Simple</option>
-      <option <%= @issue.usecase==10? 'selected': ''%> value="10">Average</option>
-      <option <%= @issue.usecase==15? 'selected': ''%> value="15">Complex</option>
+      <option <%= @issue.usecase==5? 'selected': ''%> value="5">Simples</option>
+      <option <%= @issue.usecase==10? 'selected': ''%> value="10">Média</option>
+      <option <%= @issue.usecase==15? 'selected': ''%> value="15">Complexa</option>
     </select>
   </fieldset>
 </div>
+    </div>
+    <fieldset  id="issue_type"><legend>Tipo de Função</legend>
+      <select name="issue[type]">
+        <option <%= @issue.usecase==5? 'selected': ''%> value="5">ALI - Arquivo Lógico Interno</option>
+        <option <%= @issue.usecase==10? 'selected': ''%> value="10">AIE - Arquivo Interface Externa</option>
+        <option <%= @issue.usecase==15? 'selected': ''%> value="15">EE - Entrada Externa </option>
+        <option <%= @issue.usecase==15? 'selected': ''%> value="15">SE - Saída Externa</option>
+        <option <%= @issue.usecase==15? 'selected': ''%> value="15">CE - Consulta Externa</option>
+      </select>
+      <select name="issue[pointcase]">
+        <option <%= @issue.usecase==5? 'selected': ''%> value="5">Baixa</option>
+        <option <%= @issue.usecase==10? 'selected': ''%> value="10">Média</option>
+        <option <%= @issue.usecase==15? 'selected': ''%> value="15">Alta</option>
+      </select>
+    </fieldset>
+    <!-- NESMA não inclui</div>
+    <fieldset  id="issue_type"><legend>Tipo Operação</legend>
+        <input type="checkbox">Inclusão
+        <input type="checkbox">Alteração
+        <input type="checkbox">Exclusão
+        <input type="checkbox">Consulta
+    </fieldset>          -->
+    </div>
 
 <% if @issue.safe_attribute? 'custom_field_values' %>
 <%= render :partial => 'issues/form_custom_fields' %>
