@@ -82,6 +82,7 @@ class ProjectsController < ApplicationController
 
     if validate_parent_id && @project.save
       @project.set_allowed_parent!(params[:project]['parent_id']) if params[:project].has_key?('parent_id')
+      params[:factor].map{ |k,v| ComplexitiesProjects.create(:project_id=>@project.id,:complexity_id=>k,:value=>v)}
       # Add current user as a project member if he is not admin
       unless User.current.admin?
         r = Role.givable.find_by_id(Setting.new_project_user_role_id.to_i) || Role.givable.first
@@ -180,6 +181,7 @@ class ProjectsController < ApplicationController
   def update
     @project.safe_attributes = params[:project]
     if validate_parent_id && @project.save
+      params[:factor].map{ |k,v| ComplexitiesProjects.create_or_update(:project_id=>@project.id,:complexity_id=>k,:value=>v)}
       @project.set_allowed_parent!(params[:project]['parent_id']) if params[:project].has_key?('parent_id')
       respond_to do |format|
         format.html {

@@ -53,6 +53,7 @@ class Project < ActiveRecord::Base
   has_one :wiki, :dependent => :destroy
 ######Mikaele
   has_and_belongs_to_many :complexities
+  has_many :complexities_projectses
   # Custom field for the project issues
   has_and_belongs_to_many :issue_custom_fields,
                           :class_name => 'IssueCustomField',
@@ -656,7 +657,8 @@ class Project < ActiveRecord::Base
     'custom_field_values',
     'custom_fields',
     'tracker_ids',
-    'issue_custom_field_ids'
+    'issue_custom_field_ids',
+    'actor_complexity'
 
   safe_attributes 'enabled_module_names',
     :if => lambda {|project, user| project.new_record? || user.allowed_to?(:select_project_modules, project) }
@@ -1028,4 +1030,5 @@ class Project < ActiveRecord::Base
       after_parent_changed(parent_was)
     end
   end
+
 end

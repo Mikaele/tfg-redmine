@@ -1,6 +1,6 @@
 class CreateComplexitiesProjects < ActiveRecord::Migration
   def change
-    create_table :complexities_projects, :id => false do |t|
+    create_table :complexities_projects do |t|
       t.references :project
       t.references :complexity
       t.integer :value

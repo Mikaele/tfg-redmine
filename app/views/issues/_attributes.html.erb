@@ -53,8 +53,8 @@
 <% if @issue.safe_attribute? 'due_date' %>
 <p><%= f.text_field :due_date, :size => 10, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('due_date') %><%= calendar_for('issue_due_date') if @issue.leaf? %></p>
 <% end %>
-<div class="horas_pf">Horas PF</div>
-<div class="horas_pc">Horas PC</div>
+H. PC<input type="text" disabled="true" id="horas_pc">
+H. PF<input type="text" disabled="true" id="horas_pf">
 <% if @issue.safe_attribute? 'estimated_hours' %>
 <p><%= f.text_field :estimated_hours, :size => 3, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('estimated_hours') %> <%= l(:field_hours) %></p>
 <% end %>
@@ -64,7 +64,7 @@
 <% end %>
 </div>
   <fieldset  id="issue_complexity"><legend>Ponto de Caso de Uso</legend>
-    <select name="issue[usecase]">
+    <select id="complex_puc" name="issue[usecase]">
       <option <%= @issue.usecase==5? 'selected': ''%> value="5">Simples</option>
       <option <%= @issue.usecase==10? 'selected': ''%> value="10">Média</option>
       <option <%= @issue.usecase==15? 'selected': ''%> value="15">Complexa</option>
@@ -73,14 +73,14 @@
 </div>
     </div>
     <fieldset  id="issue_type"><legend>Tipo de Função</legend>
-      <select name="issue[type]">
+      <select id="type_ppf" name="issue[type]">
         <option <%= @issue.usecase==5? 'selected': ''%> value="5">ALI - Arquivo Lógico Interno</option>
         <option <%= @issue.usecase==10? 'selected': ''%> value="10">AIE - Arquivo Interface Externa</option>
         <option <%= @issue.usecase==15? 'selected': ''%> value="15">EE - Entrada Externa </option>
         <option <%= @issue.usecase==15? 'selected': ''%> value="15">SE - Saída Externa</option>
         <option <%= @issue.usecase==15? 'selected': ''%> value="15">CE - Consulta Externa</option>
       </select>
-      <select name="issue[pointcase]">
+      <select id="complex_ppf" name="issue[pointcase]">
         <option <%= @issue.usecase==5? 'selected': ''%> value="5">Baixa</option>
         <option <%= @issue.usecase==10? 'selected': ''%> value="10">Média</option>
         <option <%= @issue.usecase==15? 'selected': ''%> value="15">Alta</option>
@@ -102,3 +102,23 @@
 <% end %>
 
 <% include_calendar_headers_tags %>
+<%fat=ComplexitiesProjects.where(:project_id=> @project.id) %>
+<%
+   fca=0
+   fct=0
+   fat.each do |f|
+     if f.complexity.typ=="Environmental"
+       fca=fca+f.value*f.complexity.multiplier
+     else
+       fct=fct+f.value*f.complexity.multiplier
+     end
+   end
+%>
+<%= fatores = (1.4+fca*(-0.03))*(0.6+ fct*0.01) %>
+<script>
+  $("#complex_puc").click(function() {
+      $("#horas_pc").val($("#complex_puc").val()*<%= fatores%>);
+  });
+</script>
+<%= debug @project %>
+
