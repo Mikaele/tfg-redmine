@@ -53,9 +53,12 @@
 <% if @issue.safe_attribute? 'due_date' %>
 <p><%= f.text_field :due_date, :size => 10, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('due_date') %><%= calendar_for('issue_due_date') if @issue.leaf? %></p>
 <% end %>
-<fieldset><legend>Tempo Sugerido=((1.4+FCA*(-0.03))*(0.6+ FCT*0.01)*COMPLEX_UC)</legend>
+<fieldset><legend>Tempo Sugerido</legend>
 H. PC<input type="text" disabled="true" id="horas_pc">
-H. PF<input type="text" disabled="true" id="horas_pf">
+T. PF<input type="text" disabled="true" id="horas_pf">
+  <br>
+  =((1.4+FCA*(-0.03))*(0.6+ FCT*0.01)*COMPLEX_UC) | T.Func * C.Func
+
 </fieldset>
 <% if @issue.safe_attribute? 'estimated_hours' %>
 <p><%= f.text_field :estimated_hours, :size => 3, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('estimated_hours') %> <%= l(:field_hours) %></p>
