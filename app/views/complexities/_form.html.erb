@@ -24,8 +24,8 @@
     <%= f.text_field :description %>
   </div>
     <div class="field">
-      <%= f.label :typ %><br />
-      <%= f.text_field :typ %>
+      <%= f.label :typ,"Type" %><br />
+      <%= f.select :typ,["Environmental","Technical"]%>
     </div>
   <div class="actions">
     <%= f.submit %>
