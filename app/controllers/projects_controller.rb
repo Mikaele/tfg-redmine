@@ -180,8 +180,9 @@ class ProjectsController < ApplicationController
 
   def update
     @project.safe_attributes = params[:project]
+    ComplexitiesProjects.delete_all(:project_id =>@project.id)
     if validate_parent_id && @project.save
-      params[:factor].map{ |k,v| ComplexitiesProjects.find_by_project_id_and_complexity_id(:project_id=>@project.id,:complexity_id=>k).update_attribute(:value,v)}
+      params[:factor].map{ |k,v| ComplexitiesProjects.create(:project_id=>@project.id,:complexity_id=>k,:value=>v)}
       @project.set_allowed_parent!(params[:project]['parent_id']) if params[:project].has_key?('parent_id')
       respond_to do |format|
         format.html {
