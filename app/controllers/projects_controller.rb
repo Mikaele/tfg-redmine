@@ -181,7 +181,7 @@ class ProjectsController < ApplicationController
   def update
     @project.safe_attributes = params[:project]
     if validate_parent_id && @project.save
-      params[:factor].map{ |k,v| ComplexitiesProjects.create_or_update(:project_id=>@project.id,:complexity_id=>k,:value=>v)}
+      params[:factor].map{ |k,v| ComplexitiesProjects.create_or_update_by_project_id(:project_id=>@project.id,:complexity_id=>k,:value=>v)}
       @project.set_allowed_parent!(params[:project]['parent_id']) if params[:project].has_key?('parent_id')
       respond_to do |format|
         format.html {
