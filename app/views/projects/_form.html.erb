@@ -68,12 +68,16 @@
 <!--[eoform:project]-->
 <!--[Mikaele start code]-->
 <fieldset  id="actor_complexity"><legend>Complexidade dos atores</legend>
-  <select id="complex_actor" name="project[actor_complexity]">
-    <option value="1">Simples</option>
-    <option value="2">Média</option>
-    <option value="3">Complexa</option>
-  </select>
+   Simples  <input id="qts_simples"/><br>
+   Média <input id="qts_media"/><br>
+   Complexa <input id="qts_complex"/> <br>
+  Peso Total Complexidade dos atores<input id="total_ator_complex" name="project[actor_complexity]"/>
 </fieldset>
+<script>
+    $("#actor_complexity").click(function() {
+        $("#total_ator_complex").val(($("#qts_simples").val() * 1)+($("#qts_media").val() * 2)+($("#qts_complex").val() * 3));
+    });
+</script>
 
 <fieldset class="box tabular" id="project_complexity"><legend>Technical complexity/Complexidade Técnica</legend>
   <table>

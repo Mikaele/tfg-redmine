@@ -53,11 +53,11 @@
 <% if @issue.safe_attribute? 'due_date' %>
 <p><%= f.text_field :due_date, :size => 10, :disabled => !@issue.leaf?, :required => @issue.required_attribute?('due_date') %><%= calendar_for('issue_due_date') if @issue.leaf? %></p>
 <% end %>
-<fieldset><legend>Tempo Sugerido</legend>
-H. PC<input type="text" disabled="true" id="horas_pc">
-T. PF<input type="text" disabled="true" id="horas_pf">
+<fieldset><legend>TEMPO SUGERIDO</legend>
+Pontos.PCU<input type="text" disabled="true" id="horas_pc">
+Homens-Hora<input type="text" disabled="true" id="horas">
+  <!--T. PF<input type="text" disabled="true" id="horas_pf">-->
   <br>
-  =((1.4+FCA*(-0.03))*(0.6+ FCT*0.01)*COMPLEX_UC) | T.Func * C.Func
 
 </fieldset>
 <% if @issue.safe_attribute? 'estimated_hours' %>
@@ -68,7 +68,7 @@ T. PF<input type="text" disabled="true" id="horas_pf">
 <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
 <% end %>
 </div>
-  <fieldset  id="issue_complexity"><legend>Ponto de Caso de Uso</legend>
+  <fieldset  id="issue_complexity"><legend>Peso de Caso de Uso</legend>
     <select id="complex_puc" name="issue[usecase]">
       <option <%= @issue.usecase==5? 'selected': ''%> value="5">Simples</option>
       <option <%= @issue.usecase==10? 'selected': ''%> value="10">Média</option>
@@ -77,7 +77,7 @@ T. PF<input type="text" disabled="true" id="horas_pf">
   </fieldset>
 </div>
     </div>
-    <fieldset  id="issue_type"><legend>Tipo de Função</legend>
+  <!--  <fieldset  id="issue_type"><legend>Tipo de Função</legend>
       <select id="type_ppf" name="issue[type]">
         <option <%= @issue.usecase==5? 'selected': ''%> value="5">ALI - Arquivo Lógico Interno</option>
         <option <%= @issue.usecase==10? 'selected': ''%> value="10">AIE - Arquivo Interface Externa</option>
@@ -119,15 +119,15 @@ T. PF<input type="text" disabled="true" id="horas_pf">
      end
    end
 %>
-<%= "Fatores Muklltiplicados" %>
+<%= "Fatores Mulltiplicados" %>
 <%= fatores = (1.4+fca*(-0.03))*(0.6+ fct*0.01) %>
 <script>
   $("#complex_puc").click(function() {
       $("#horas_pc").val($("#complex_puc").val()*<%= fatores%>);
   });
-  $("#complex_ppf").click(function(){
-      $("#horas_pf").val($("#complex_ppf").val()*$("#type_ppf").val());
-  });
+ // $("#complex_ppf").click(function(){
+ //     $("#horas_pf").val($("#complex_ppf").val()*$("#type_ppf").val());
+ // });
 </script>
-<%# debug @project %>
+<%= debug @project %>
 
