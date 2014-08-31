@@ -122,7 +122,7 @@
     <%  %>
     <% Complexity.where("typ like '%Environmental%'").each do |factor| %>
         <tr>
-          <td></td>
+          <td></<%=factor.factor%>td>
           <td><%= factor.multiplier %></td>
           <td><input name="factor[<%=factor.id%>]" type="number"></td>
           <td><%= factor.description %></td>
