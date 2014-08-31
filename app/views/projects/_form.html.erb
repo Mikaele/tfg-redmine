@@ -75,7 +75,7 @@
     </tr>
     <tr>
       <td>Simples</td>
-      <td><input id="qts_simples"/></td>
+      <td><input id="qts_simples" maxlength="4" size="4"/></td>
     </tr>
     <tr>
       <td>Média</td>
@@ -85,7 +85,7 @@
       <td><input id="qts_complex"/></td>
     </tr>
   </table>
-  Peso Total Complexidade dos atores<input id="total_ator_complex" disabled="" name="project[actor_complexity]"/>
+  Peso Total Complexidade dos atores<input id="total_ator_complex" disabled="" name="project[actor_complexity]" maxlength="10" size="10"/>
 </fieldset>
 <script>
     $("#actor_complexity").click(function() {
@@ -105,7 +105,7 @@
       <tr>
         <td><%=factor.factor%></td>
         <td><%= factor.multiplier %></td>
-        <td><input name="factor[<%=factor.id%>]" type="number"></td>
+        <td><input name="factor[<%=factor.id%>]" type="number" maxlength="4" size="4"></td>
         <td><%= factor.description %></td>
       </tr>
   <% end %>
@@ -124,7 +124,7 @@
         <tr>
           <td><%=factor.factor%></td>
           <td><%= factor.multiplier %></td>
-          <td><input name="factor[<%=factor.id%>]" type="number"></td>
+          <td><input name="factor[<%=factor.id%>]" type="number" maxlength="4" size="4"></td>
           <td><%= factor.description %></td>
         </tr>
     <% end %>
